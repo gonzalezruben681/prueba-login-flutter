@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:login_flutter/bloc/login/login_bloc.dart';
-import 'package:login_flutter/bloc/producto/producto_bloc.dart';
-import 'package:login_flutter/pages/home_page.dart';
-import 'package:login_flutter/pages/login_page.dart';
-import 'package:login_flutter/repositories/repositories.dart';
+import 'package:login_flutter/login/bloc/login/login_bloc.dart';
+import 'package:login_flutter/producto/bloc/producto/producto_bloc.dart';
+import 'package:login_flutter/login/ui/pages/pages.dart';
+import 'package:login_flutter/producto/ui/pages/pages.dart';
+import 'package:login_flutter/login/repositories/repositories.dart';
+import 'package:login_flutter/producto/repositories/repositories.dart';
 
 void main() => runApp(MyApp());
 

@@ -28,3 +28,5 @@ class ErrorBlocState extends LoginState {
   @override
   List<Object> get props => [message];
 }
+
+class LoggedOut extends LoginState {}
