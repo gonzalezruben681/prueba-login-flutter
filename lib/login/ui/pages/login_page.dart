@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:login_flutter/bloc/login/login_bloc.dart';
-import 'package:login_flutter/pages/home_page.dart';
-import 'package:login_flutter/repositories/auth_repository.dart';
-import 'package:login_flutter/service/services.dart';
-import 'package:login_flutter/widgets/widgets.dart';
-import 'package:login_flutter/ui/input_decorations.dart';
+import 'package:login_flutter/login/bloc/login/login_bloc.dart';
+import 'package:login_flutter/login/repositories/repositories.dart';
+import 'package:login_flutter/login/ui/input_decorations.dart';
+import 'package:login_flutter/login/ui/widgets/widgets.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -23,8 +21,6 @@ class LoginPage extends StatelessWidget {
               Text('Login', style: Theme.of(context).textTheme.headline4),
               SizedBox(height: 30),
               _LoginForm()
-              /*ChangeNotifierProvider(
-                  create: (_) => LoginFormProvider(), child: _LoginForm()) */
             ],
           )),
           SizedBox(height: 50),
@@ -59,12 +55,15 @@ class __LoginFormState extends State<_LoginForm> {
         listener: (context, state) {
           if (state is ErrorBlocState) {
             // escucha la acción que hace el blocbuilder mostrar errores, mensajes sirve el
-            // return NotificationsService.showSnackbar(state.message);
             _showError(context, state.message);
+            setState(() {
+              guardado = false;
+            });
           }
           if (state is LoggedInBlocState) {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => HomePage()));
+            Navigator.pushNamed(context, 'producto');
+            /*  Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => HomePage())); */
           }
         },
         child: BlocBuilder<LoginBloc, LoginState>(
@@ -141,7 +140,7 @@ class __LoginFormState extends State<_LoginForm> {
   }
 
   void _doLogin() {
-    FocusScope.of(context).unfocus();
+    //FocusScope.of(context).unfocus();
     if (!formKey.currentState!.validate())
       return; // para validar que el formulario cumple con los datos sugeridos
     formKey.currentState!.save();
@@ -153,8 +152,7 @@ class __LoginFormState extends State<_LoginForm> {
   }
 
   void _showError(BuildContext context, String message) {
-    Scaffold.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-    ));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 }

@@ -27,7 +27,7 @@ class AuthRepository {
       await storage.write(key: 'token', value: decodedResp['idToken']);
       return decodedResp['idToken'];
     } else {
-      return decodedResp['error']['message'];
+      return null; //decodedResp['error']['message'];
     }
   }
 
